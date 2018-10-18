@@ -25,6 +25,4 @@ COPY start-services.sh /etc/start-services.sh
 RUN chmod +x /etc/start-services.sh
 CMD /etc/start-services.sh
 
-USER cerulean
-
 HEALTHCHECK --interval=1s CMD ssh -o NoHostAuthenticationForLocalhost=yes -i /home/cerulean/.ssh/id1_rsa cerulean@localhost /bin/true && pbsnodes -l free $(hostname) || exit 1

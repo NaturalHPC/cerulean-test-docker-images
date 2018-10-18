@@ -54,6 +54,3 @@ RUN apt-get update && \
 COPY start-services.sh /etc/start-services.sh
 RUN chmod +x /etc/start-services.sh
 CMD /etc/start-services.sh
-
-# Switch to normal user as a sane default
-# USER cerulean

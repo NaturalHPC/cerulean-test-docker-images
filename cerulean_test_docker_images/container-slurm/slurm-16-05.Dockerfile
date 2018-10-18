@@ -48,6 +48,3 @@ COPY slurm.conf /usr/local/etc/slurm/slurm.conf
 COPY start-services.sh /etc/start-services.sh
 RUN chmod +x /etc/start-services.sh
 CMD /etc/start-services.sh
-
-# Switch back to normal user
-USER cerulean
