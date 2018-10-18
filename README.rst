@@ -50,16 +50,19 @@ Installing
 These images are built automatically on Docker Hub, so you can just pull them:
 
 .. code-block:: console
+
   docker pull cerulean-test-base
 
 Then to run them, use
 
 .. code-block:: console
+
   docker run --name cerulean-test-container -p 22:10022 cerulean-test-base
 
 And then you can connect to them using
 
 .. code-block:: console
+
   ssh -p 10022 cerulean@localhost
 
 
