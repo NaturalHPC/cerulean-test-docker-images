@@ -6,6 +6,10 @@ mkdir /home/cerulean/test_files/links
 # files
 echo 'Hello World' >/home/cerulean/test_files/links/file0
 touch /home/cerulean/test_files/links/file1
+touch /home/cerulean/test_files/links/executable
+chmod 744 /home/cerulean/test_files/links/executable
+touch /home/cerulean/test_files/links/noaccess
+chmod 000 /home/cerulean/test_files/links/noaccess
 
 # symlink
 ln -s /home/cerulean/test_files/links/file0 /home/cerulean/test_files/links/link0
