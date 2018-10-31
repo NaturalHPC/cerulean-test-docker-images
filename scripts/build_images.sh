@@ -3,11 +3,11 @@
 BASEDIR="$PWD"
 
 cd cerulean_test_docker_images/container-base
-docker build -t cerulean-test-base .
+docker build -t mdstudio/cerulean-test-base .
 cd $BASEDIR
 
 cd cerulean_test_docker_images/container-torque
-docker build -t cerulean-test-torque-6 .
+docker build -t mdstudio/cerulean-test-torque-6 .
 cd $BASEDIR
 
 cd cerulean_test_docker_images/container-slurm
