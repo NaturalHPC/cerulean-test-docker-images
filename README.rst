@@ -39,6 +39,9 @@ This repository currently offers 7 images:
 ``cerulean-test-slurm-17-11``
   Like cerulean-test-slurm-14-11, but with Slurm 17.11.
 
+``cerulean-test-slurm-18-08``
+  Like cerulean-test-slurm-14-11, but with Slurm 18.08.
+
 Note that these images are not entirely stable on purpose, they will be rebuilt
 from time to time with the latest libraries. It's all within a single version of
 the OS, so it's not that likely to break, but be aware that these are intended
