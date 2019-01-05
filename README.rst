@@ -1,6 +1,6 @@
-################################################################################
+###########################
 Cerulean test Docker images
-################################################################################
+###########################
 
 A set of Docker images containing various cluster schedulers for testing
 purposes. These images are used for testing Cerulean, but may be useful to
