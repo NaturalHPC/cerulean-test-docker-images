@@ -8,13 +8,17 @@ others.
 
 The implementation borrows heavily from the Xenon testing Docker images.
 
-This repository currently offers 7 images:
+This repository currently offers 9 images:
 
 ``cerulean-test-base``
   A base image containing SSH and a ``cerulean`` user. You can log in using
   either the password ``kingfisher``, or the private key named ``id1_rsa`` in
   ``cerulean_test_docker_images/container_base/.ssh/``, or the private key named
   ``id2_rsa`` with passphrase ``kingfisher``.
+
+``cerulean-test-webdav``
+  An image based on cerulean-test-base, which has nginx installed and running,
+  with WebDAV configured on ``/files``.
 
 ``cerulean-test-torque-6``
   An image based on cerulean-test-base, which also has Torque 6 installed and
@@ -67,6 +71,9 @@ And then you can connect to them using
 .. code-block:: console
 
   ssh -p 10022 cerulean@localhost
+
+For the WebDAV container, you'l want to map its internal ports 80 and/or 443 to
+some port on the host, instead of 22.
 
 
 Contributing

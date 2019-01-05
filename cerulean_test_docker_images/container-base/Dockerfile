@@ -13,6 +13,7 @@ RUN chmod 700 .ssh && \
 chmod 600 .ssh/id1_rsa .ssh/id2_rsa && \
 chmod 644 .ssh/authorized_keys .ssh/id1_rsa.pub .ssh/id2_rsa.pub && \
 chown -R cerulean:cerulean .ssh
+COPY cerulean_webdav.crt /home/cerulean/cerulean_webdav.crt
 
 # Create test files
 COPY create-test-files.sh /home/cerulean/create-test-files.sh

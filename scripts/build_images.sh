@@ -6,6 +6,10 @@ cd cerulean_test_docker_images/container-base
 docker build -t mdstudio/cerulean-test-base .
 cd $BASEDIR
 
+cd cerulean_test_docker_images/container-webdav
+docker build -t mdstudio/cerulean-test-webdav .
+cd $BASEDIR
+
 cd cerulean_test_docker_images/container-torque
 docker build -t mdstudio/cerulean-test-torque-6 .
 cd $BASEDIR
