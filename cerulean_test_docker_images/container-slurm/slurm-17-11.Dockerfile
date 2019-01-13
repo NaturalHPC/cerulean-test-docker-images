@@ -40,7 +40,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN /bin/bash /usr/local/bin/install_slurm.sh slurm-17-11-7-1.tar.gz
+RUN /bin/bash /usr/local/bin/install_slurm.sh slurm-17-11-12-1.tar.gz
 
 COPY slurm.conf /usr/local/etc/slurm/slurm.conf
 
