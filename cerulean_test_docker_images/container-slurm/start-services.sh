@@ -19,7 +19,10 @@ echo -e "\nstarting compute nodes..."
 /usr/local/sbin/slurmd -D -N node-4 > /var/log/slurmd-node-4.out.log 2> /var/log/slurmd-node-4.err.log &
 
 echo -e "\nsleeping for a few seconds to avoid problems..."
-sleep 1
+
+while [ ! -f /var/log/slurm/accounting ] ; do
+    sleep 1
+done
 
 echo -e "\nmaking accounting readable to users..."
 /bin/chmod -R og+rX /var/log/slurm
