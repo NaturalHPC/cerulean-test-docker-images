@@ -1,0 +1,607 @@
+diff --git a/src/cmds/qsub_functions.c b/src/cmds/qsub_functions.c
+index 4fdfac0a7..9799c831f 100644
+--- a/src/cmds/qsub_functions.c
++++ b/src/cmds/qsub_functions.c
+@@ -3363,14 +3363,14 @@ void process_opts(
+         if (add_verify_resources(ji->res_attr, optarg, data_type) != 0)
+           print_qsub_usage_exit("qsub: illegal -l value");
+ 
+-          //If cpuclock gets set we need to set the node exclusive flag
++        //If cpuclock gets set we need to set the node exclusive flag
++        {
++        job_data *pData = NULL;
++        if (hash_find(ji->res_attr,"cpuclock",&pData))
+           {
+-          job_data *pData = NULL;
+-          if (hash_find(ji->res_attr,"cpuclock",&pData))
+-            {
+-            hash_add_or_exit(ji->job_attr, ATTR_node_exclusive, "TRUE", data_type);
+-            }
++          hash_add_or_exit(ji->job_attr, ATTR_node_exclusive, "TRUE", data_type);
+           }
++        }
+ 
+         break;
+ 
+diff --git a/src/cmds/qterm.c b/src/cmds/qterm.c
+index d05bd42d4..0519328c0 100644
+--- a/src/cmds/qterm.c
++++ b/src/cmds/qterm.c
+@@ -89,6 +89,8 @@ int main(
+ 
+         local = true;
+ 
++        break;
++
+       case 't':
+ 
+         type = optarg;
+diff --git a/src/include/attribute.h b/src/include/attribute.h
+index 8fbff163b..cc1c77df7 100644
+--- a/src/include/attribute.h
++++ b/src/include/attribute.h
+@@ -512,7 +512,7 @@ int to_size(const char *val, struct size_value *psize);
+ void from_size(struct size_value *psize, char *cvnbuf);
+ void create_size_string(char *buf, struct size_value values);
+ 
+-#define NULL_FUNC '\0'
++#define NULL_FUNC NULL
+ 
+ /* other associated funtions */
+ 
+diff --git a/src/lib/Libattr/attr_fn_acl.c b/src/lib/Libattr/attr_fn_acl.c
+index ebb2775bf..1b6ed0984 100644
+--- a/src/lib/Libattr/attr_fn_acl.c
++++ b/src/lib/Libattr/attr_fn_acl.c
+@@ -502,7 +502,7 @@ int set_allacl(
+       pas->as_next = pas->as_buf;
+ 
+       /* No break, "Set" falls into "Incr" to add strings */
+-
++      /* fall through - this line disables GCC warning */
+     case INCR_OLD:
+     case INCR:
+ 
+diff --git a/src/lib/Libattr/attr_fn_arst.c b/src/lib/Libattr/attr_fn_arst.c
+index c63281637..035345d7b 100644
+--- a/src/lib/Libattr/attr_fn_arst.c
++++ b/src/lib/Libattr/attr_fn_arst.c
+@@ -532,8 +532,8 @@ int encode_arst(
+ 
+         *pc++ = '\\';
+ 
+-        // escape sequence added. Fall through.
+-
++        // escape sequence added
++        // fall through - this line disables GCC warning
+       default:
+ 
+         *pc = *pfrom;
+@@ -735,7 +735,7 @@ int set_arst(
+       pas->as_next = pas->as_buf;
+ 
+       /* no break, "SET" falls into "MERGE" to add strings */
+-
++      /* fall through - this line disables GCC warning */
+     case INCR_OLD:
+     case MERGE:
+ 
+diff --git a/src/lib/Libcmds/cvtdate.c b/src/lib/Libcmds/cvtdate.c
+index e936c6fbe..1233ac283 100644
+--- a/src/lib/Libcmds/cvtdate.c
++++ b/src/lib/Libcmds/cvtdate.c
+@@ -167,8 +167,7 @@ time_t cvtdate(
+       year   = atoi(buf) * 100;
+       datestr += 2;
+ 
+-      /* no break, fall into next case */
+-
++      /* fall through - and disable compiler warning */
+     case 10:  /* YYMMDDhhmm */
+       buf[0] = datestr[0];
+       buf[1] = datestr[1];
+@@ -187,8 +186,7 @@ time_t cvtdate(
+ 
+       datestr += 2;
+ 
+-      /* no break, fall into next case */
+-
++      /* fall through - and disable compiler warning */
+     case 8:  /* MMDDhhmm */
+       buf[0] = datestr[0];
+ 
+@@ -209,8 +207,7 @@ time_t cvtdate(
+ 
+       datestr += 2;
+ 
+-      /* no break, fall into next case */
+-
++      /* fall through - and disable compiler warning */
+     case 6:  /* DDhhmm */
+       buf[0] = datestr[0];
+ 
+@@ -229,8 +226,7 @@ time_t cvtdate(
+ 
+       datestr += 2;
+ 
+-      /* no break, fall into next case */
+-
++      /* fall through - and disable compiler warning */
+     case 4:  /* hhmm */
+       buf[0] = datestr[0];
+ 
+diff --git a/src/lib/Libdis/disrsc.c b/src/lib/Libdis/disrsc.c
+index ac7fec6cb..edd930b95 100644
+--- a/src/lib/Libdis/disrsc.c
++++ b/src/lib/Libdis/disrsc.c
+@@ -140,7 +140,7 @@ signed char disrsc(
+         }
+       else
+         locret = DIS_OVERFLOW;
+-
++      /* fall through - and disable compiler warning */
+     case DIS_OVERFLOW:
+       value = negate ? SCHAR_MIN : SCHAR_MAX;
+     }
+diff --git a/src/lib/Libdis/disrsi.c b/src/lib/Libdis/disrsi.c
+index a2417725f..e33d1ba4f 100644
+--- a/src/lib/Libdis/disrsi.c
++++ b/src/lib/Libdis/disrsi.c
+@@ -140,7 +140,7 @@ int disrsi(
+         locret = DIS_OVERFLOW;
+         *retval = locret;
+         }
+-
++      /* fall through - and disable compiler warning */
+     case DIS_OVERFLOW:
+ 
+       value = negate ? INT_MIN : INT_MAX;
+diff --git a/src/lib/Libdis/disrsl.c b/src/lib/Libdis/disrsl.c
+index 9853056fc..fa6d29981 100644
+--- a/src/lib/Libdis/disrsl.c
++++ b/src/lib/Libdis/disrsl.c
+@@ -138,7 +138,7 @@ long disrsl(
+         }
+       else
+         locret = DIS_OVERFLOW;
+-
++      /* fall through - and disable compiler warning */
+     case DIS_OVERFLOW:
+       value = negate ? LONG_MIN : LONG_MAX;
+     }
+diff --git a/src/lib/Libdis/disrss.c b/src/lib/Libdis/disrss.c
+index 80eb98109..ec75a2314 100644
+--- a/src/lib/Libdis/disrss.c
++++ b/src/lib/Libdis/disrss.c
+@@ -139,7 +139,7 @@ short disrss(
+         }
+       else
+         locret = DIS_OVERFLOW;
+-
++      /* fall through - and disable compiler warning */
+     case DIS_OVERFLOW:
+       value = negate ? SHRT_MIN : SHRT_MAX;
+     }
+diff --git a/src/lib/Libnet/net_client.c b/src/lib/Libnet/net_client.c
+index 8f8542320..cc1caedbe 100644
+--- a/src/lib/Libnet/net_client.c
++++ b/src/lib/Libnet/net_client.c
+@@ -532,7 +532,7 @@ jump_to_check:
+         break;
+         }/* Interrupted system call */
+       
+-      /* fall through to next case */
++      /* fall through - to next case */
+ 
+     case EINVAL:		/* Invalid argument */
+     
+@@ -584,6 +584,8 @@ jump_to_check:
+         goto retry;
+         }
+       
++      /* not sure if this is correct actually */
++      /* fall through - and disable GCC warning */
+     default:
+       
+       char err_buf[1024];
+diff --git a/src/lib/Libnet/net_common.c b/src/lib/Libnet/net_common.c
+index 7b36d31aa..3447c13d9 100644
+--- a/src/lib/Libnet/net_common.c
++++ b/src/lib/Libnet/net_common.c
+@@ -407,6 +407,7 @@ int socket_connect_addr(
+         /* essentially, only fall through for a transient failure */
+ 
+       /* socket not ready for writing after 5 timeout */
++      /* fall through - and disable compiler warning */
+       case EINVAL:    /* Invalid argument */
+       case EADDRINUSE:    /* Address already in use */
+       case EADDRNOTAVAIL:   /* Cannot assign requested address */
+diff --git a/src/lib/Libutils/jsoncpp.cpp b/src/lib/Libutils/jsoncpp.cpp
+index 7caed48c5..118d2a1de 100644
+--- a/src/lib/Libutils/jsoncpp.cpp
++++ b/src/lib/Libutils/jsoncpp.cpp
+@@ -219,7 +219,7 @@ static int       stackDepth_g = 0;  // see readValue()
+ 
+ namespace Json {
+ 
+-typedef std::auto_ptr<CharReader>   CharReaderPtr;
++typedef std::unique_ptr<CharReader>   CharReaderPtr;
+ 
+ // Implementation of class Features
+ // ////////////////////////////////
+@@ -1275,7 +1275,7 @@ bool OurReader::readToken(Token& token) {
+     token.type_ = tokenString;
+     ok = readStringSingleQuote();
+     break;
+-    } // else continue
++    } // else fall through - and disable GCC warning
+   case '/':
+     token.type_ = tokenComment;
+     ok = readComment();
+@@ -3778,7 +3778,7 @@ Value& Path::make(Value& root) const {
+ 
+ namespace Json {
+ 
+-typedef std::auto_ptr<StreamWriter>   StreamWriterPtr;
++typedef std::unique_ptr<StreamWriter>   StreamWriterPtr;
+ 
+ static bool containsControlCharacter(const char* str) {
+   while (*str) {
+diff --git a/src/resmom/checkpoint.c b/src/resmom/checkpoint.c
+index f178f4840..bd86e0c60 100644
+--- a/src/resmom/checkpoint.c
++++ b/src/resmom/checkpoint.c
+@@ -949,7 +949,7 @@ int blcr_checkpoint_job(
+   {
+   char             sid[20];
+   char            *arg[20];
+-  char             buf[1024];
++  char             buf[1024*2];
+   int              len;
+   char           **ap;
+   FILE            *fs;
+@@ -1526,7 +1526,7 @@ int start_checkpoint(
+ 
+   pid_t     pid;
+   int       rc = PBSE_NONE;
+-  char      name_buffer[MAXPATHLEN + 1];
++  char      name_buffer[MAXPATHLEN + 43];
+   time_t    time_now;
+ 
+   time_now = time((time_t *)0);
+@@ -1761,7 +1761,7 @@ int blcr_restart_job(
+   char           sid[20];
+   char          *arg[20];
+   extern char    restart_script_name[MAXPATHLEN + 1];
+-  char           buf[1024];
++  char           buf[1024*2];
+   char           namebuf[MAXPATHLEN + 1];
+   char           restartfile[MAXPATHLEN + 1];
+   char           script_buf[MAXPATHLEN + 1];
+diff --git a/src/resmom/linux/mom_mach.c b/src/resmom/linux/mom_mach.c
+index acaf81d46..8bd35c7f6 100644
+--- a/src/resmom/linux/mom_mach.c
++++ b/src/resmom/linux/mom_mach.c
+@@ -4983,7 +4983,7 @@ void scan_non_child_tasks(void)
+ 
+       if (!found)
+         {
+-        char buf[MAXLINE];
++        char buf[MAXLINE*2];
+ 
+         extern int exiting_tasks;
+ 
+@@ -5075,7 +5075,7 @@ const char *idletime(
+   DIR         *dp;
+ 
+   struct dirent *de;
+-  char          ttyname[50];
++  char          ttyname[255 + 5 + 1];
+   time_t         curtm;
+ 
+   if (attrib)
+diff --git a/src/resmom/mom_main.c b/src/resmom/mom_main.c
+index 2d8453a15..31331d16b 100644
+--- a/src/resmom/mom_main.c
++++ b/src/resmom/mom_main.c
+@@ -1067,7 +1067,7 @@ char *conf_res(
+     goto done;
+     }
+ 
+-  name[i] = '\0';
++  name[i] = NULL;
+ 
+   for (d = ret_string, resline++;*resline;)
+     {
+@@ -6520,7 +6520,7 @@ void prepare_child_tasks_for_delete()
+       {
+       task *pTask = pJob->ji_tasks->at(i);
+ 
+-      char buf[128];
++      char buf[MAXLINE*2];
+ 
+       extern int exiting_tasks;
+ 
+diff --git a/src/resmom/mom_req_quejob.c b/src/resmom/mom_req_quejob.c
+index 2211f52d5..8526b6773 100644
+--- a/src/resmom/mom_req_quejob.c
++++ b/src/resmom/mom_req_quejob.c
+@@ -743,7 +743,7 @@ void req_mvjobfile(
+ 
+   if (pj == NULL)
+     {
+-    snprintf(log_buffer, 1024, "cannot find job %s for move of %s file",
++    snprintf(log_buffer, 1024, "cannot find job %.900s for move of %s file",
+       preq->rq_ind.rq_jobfile.rq_jobid,
+       TJobFileType[jft]);
+ 
+diff --git a/src/resmom/mom_server.c b/src/resmom/mom_server.c
+index f90c2cd22..bf302adfa 100644
+--- a/src/resmom/mom_server.c
++++ b/src/resmom/mom_server.c
+@@ -1900,7 +1900,7 @@ void mom_server_diag(
+   std::stringstream &output)
+ 
+   {
+-  char tmpLine[1024];
++  char tmpLine[2048];
+   time_t Now;
+ 
+   if (pms->pbs_servername[0] == '\0')
+diff --git a/src/resmom/parse_config.c b/src/resmom/parse_config.c
+index 8c4bb8585..35efb7880 100644
+--- a/src/resmom/parse_config.c
++++ b/src/resmom/parse_config.c
+@@ -2385,14 +2385,14 @@ void reset_config_vars()
+   mom_host[0] = '\0';
+   hostname_specified = 0;
+   MOMConfigRReconfig = 0;
+-  TNoSpoolDirList[0] = '\0';
++  TNoSpoolDirList[0] = NULL;
+   is_reporter_mom = FALSE;
+   is_login_node = FALSE;
+   job_exit_wait_time = DEFAULT_JOB_EXIT_WAIT_TIME;
+   jobstarter_exe_name[0] = '\0';
+   jobstarter_set = 0;
+   server_alias = NULL;
+-  TRemChkptDirList[0] = '\0';
++  TRemChkptDirList[0] = NULL;
+   tmpdir_basename[0] = '\0';  /* for $TMPDIR */
+   rcp_path[0] = '\0';
+   rcp_args[0] = '\0';
+diff --git a/src/resmom/requests.c b/src/resmom/requests.c
+index 588905e4e..de6fd2004 100644
+--- a/src/resmom/requests.c
++++ b/src/resmom/requests.c
+@@ -1490,7 +1490,7 @@ void req_modifyjob(
+   int            rc;
+   unsigned int   momport = 0;
+ 
+-  char           tmpLine[1024];
++  char           tmpLine[2048];
+ 
+   pjob = mom_find_job(preq->rq_ind.rq_modify.rq_objname);
+ 
+diff --git a/src/scheduler.cc/samples/fifo/dedtime.c b/src/scheduler.cc/samples/fifo/dedtime.c
+index b919ec894..246bd4f8a 100644
+--- a/src/scheduler.cc/samples/fifo/dedtime.c
++++ b/src/scheduler.cc/samples/fifo/dedtime.c
+@@ -118,7 +118,7 @@ int parse_ded_file(const char *filename)
+ 
+   i = 0;
+ 
+-  memset(conf.ded_time, 0, MAX_DEDTIME_SIZE);
++  memset(conf.ded_time, 0, sizeof(struct timegap) * MAX_DEDTIME_SIZE);
+ 
+   while (fgets(line, 256, fp) != NULL)
+     {
+diff --git a/src/server/geteusernam.c b/src/server/geteusernam.c
+index ccc4daf94..b1acde6b5 100644
+--- a/src/server/geteusernam.c
++++ b/src/server/geteusernam.c
+@@ -339,7 +339,7 @@ bool is_user_allowed_to_submit_jobs(
+   bool            HostAllowed = false;
+   std::string     short_host;
+ 
+-  char            log_buf[256];
++  char            log_buf[MAXLINE*2];
+ 
+ #ifdef MUNGE_AUTH
+   char            uh[PBS_MAXUSER + PBS_MAXHOSTNAME + 2];
+diff --git a/src/server/job_func.c b/src/server/job_func.c
+index dbc47de45..b7ab70dd1 100644
+--- a/src/server/job_func.c
++++ b/src/server/job_func.c
+@@ -2393,7 +2393,7 @@ int change_external_job_name(
+   job *pjob)
+ 
+   {
+-  char  tmp_jobid[PBS_MAXSVRJOBID + 1];
++  char  tmp_jobid[PBS_MAXSVRJOBID + 4];
+   char *dot = strchr(pjob->ji_qs.ji_jobid, '.');
+ 
+   if (dot != NULL)
+diff --git a/src/server/node_manager.c b/src/server/node_manager.c
+index 663b741da..63ac4b977 100644
+--- a/src/server/node_manager.c
++++ b/src/server/node_manager.c
+@@ -925,7 +925,7 @@ void process_legacy_job_attribute_information(
+       char *attr_name = threadsafe_tokenizer(&attr_val, "=");
+ 
+       if ((attr_name != NULL) &&
+-          (attr_val != '\0'))
++          (*attr_val != '\0'))
+         {
+         if (str_to_attr(attr_name, attr_val, pjob->ji_wattr, job_attr_def, JOB_ATR_LAST) == ATTR_NOT_FOUND)
+           {
+diff --git a/src/server/pbsd_init.c b/src/server/pbsd_init.c
+index 023380058..19c8c1272 100644
+--- a/src/server/pbsd_init.c
++++ b/src/server/pbsd_init.c
+@@ -2667,7 +2667,7 @@ int pbsd_init_job(
+ 
+       svr_setjobstate(pjob, JOB_STATE_COMPLETE, JOB_SUBSTATE_COMPLETE, FALSE);
+ 
+-
++      /* fall through - and disable GCC warning */
+     case JOB_SUBSTATE_COMPLETE:
+ 
+       /* Completed jobs are no longer purged on startup */
+diff --git a/src/server/process_request.c b/src/server/process_request.c
+index e7f243f58..8d2647bf6 100644
+--- a/src/server/process_request.c
++++ b/src/server/process_request.c
+@@ -465,7 +465,7 @@ int read_request_from_socket(
+     /* See if the request is in the limited acl list */
+     if (limited_acls.is_authorized(request.rq_host, request.rq_user) == false)
+       {
+-      char tmpLine[MAXLINE];
++      char tmpLine[PBS_MAXHOSTNAME + 34];
+       snprintf(tmpLine, sizeof(tmpLine), "request not authorized from host %s",
+         request.rq_host);
+       req_reject(PBSE_BADHOST, 0, &request, NULL, tmpLine);
+diff --git a/src/server/req_jobobit.c b/src/server/req_jobobit.c
+index 583a37f80..4678ebf1f 100644
+--- a/src/server/req_jobobit.c
++++ b/src/server/req_jobobit.c
+@@ -2070,7 +2070,7 @@ void on_job_exit(
+       /* pjob->ji_mutex is always unlocked when returning from handle_exiting_or_abort_substate */
+       pjob = NULL;
+ 
+-      /* NO BREAK, fall into stage out processing */
++      /* fall through - into stage out processing */
+ 
+     case JOB_SUBSTATE_RETURNSTD:
+       /* this is a new substate to TORQUE 2.4.0.  The purpose is to provide a
+@@ -2089,6 +2089,7 @@ void on_job_exit(
+ 
+       preq = NULL;
+       pjob = NULL;
++      /* fall through - continue with next state */
+ 
+     case JOB_SUBSTATE_STAGEOUT:
+ 
+@@ -2105,6 +2106,7 @@ void on_job_exit(
+ 
+       preq = NULL;
+       pjob = NULL;
++      /* fall through - continue with next state */
+ 
+     case JOB_SUBSTATE_STAGEDEL:
+ 
+@@ -2125,6 +2127,7 @@ void on_job_exit(
+ 
+       preq = NULL;
+       pjob = NULL;
++      /* fall through - continue with next state */
+ 
+     case JOB_SUBSTATE_EXITED:
+ 
+@@ -2148,6 +2151,7 @@ void on_job_exit(
+ 
+       type = rc;
+       pjob = NULL;
++      /* fall through - continue with next state */
+ 
+     case JOB_SUBSTATE_COMPLETE:
+ 
+@@ -2409,7 +2413,7 @@ void on_job_rerun(
+         preq = NULL;
+         }
+ 
+-      /* NO BREAK, FALL THROUGH TO NEXT CASE, including the request */
++      /* fall through - to the next case, including the request */
+ 
+     case JOB_SUBSTATE_RERUN1:
+ 
+@@ -2530,7 +2534,7 @@ void on_job_rerun(
+           }
+         }
+ 
+-      /* NO BREAK - FALL INTO THE NEXT CASE */
++      /* fall through - to the next case */
+ 
+     case JOB_SUBSTATE_RERUN2:
+ 
+@@ -2618,7 +2622,7 @@ void on_job_rerun(
+           }
+         }
+ 
+-      /* NO BREAK, FALL THROUGH TO NEXT CASE */
++      /* fall through - to the next case */
+ 
+     case JOB_SUBSTATE_RERUN3:
+ 
+@@ -3307,7 +3311,7 @@ int update_substate_from_exit_status(
+ 
+           set_job_comment(pjob, pbse_to_txt(PBSE_CGROUP_CREATE_FAIL));
+ 
+-          // Fall through intentionally
++          // Fall through - intentionally
+         
+         case JOB_EXEC_RETRY_PROLOGUE:
+ 
+@@ -3319,7 +3323,7 @@ int update_substate_from_exit_status(
+             log_err(-1, __func__, log_buf);
+             }
+ 
+-          // Fall through intentionally
++          // Fall through - intentionally
+ 
+         case JOB_EXEC_RETRY:
+ 
+diff --git a/src/server/req_quejob.c b/src/server/req_quejob.c
+index e30acbb59..5ce1ec3fd 100644
+--- a/src/server/req_quejob.c
++++ b/src/server/req_quejob.c
+@@ -326,7 +326,7 @@ void sum_select_mem_request(
+       tmp = atoi(current);
+       
+       /* advance past the digits to the units */
+-      while ((current != '\0') &&
++      while ((*current != '\0') &&
+              (isdigit(*current)))
+         current++;
+ 
+diff --git a/src/server/req_runjob.c b/src/server/req_runjob.c
+index 8b128b8db..26b065c99 100644
+--- a/src/server/req_runjob.c
++++ b/src/server/req_runjob.c
+@@ -1635,7 +1635,7 @@ job *chk_job_torun(
+   pbs_queue        *pque;
+   int               rc;
+ 
+-  char              EMsg[1024];
++  char              EMsg[1058];
+   char              FailHost[1024];
+   char             *exec_host;
+   char             *ptr;
+diff --git a/src/server/svr_chk_owner.c b/src/server/svr_chk_owner.c
+index 4b33c5722..59a838401 100644
+--- a/src/server/svr_chk_owner.c
++++ b/src/server/svr_chk_owner.c
+@@ -418,9 +418,9 @@ int authenticate_user(
+ 
+   {
+   int    rc;
+-  char   uath[PBS_MAXUSER + PBS_MAXHOSTNAME + 1];
++  char   uath[PBS_MAXUSER + PBS_MAXHOSTNAME + 2];
+   time_t time_now = time(NULL);
+-  char   error_msg[1024];
++  char   error_msg[3072];
+   bool   acl_enabled = false;
+ 
+ #ifdef MUNGE_AUTH
+diff --git a/src/server/svr_jobfunc.c b/src/server/svr_jobfunc.c
+index fd54a910a..cd0203fbf 100644
+--- a/src/server/svr_jobfunc.c
++++ b/src/server/svr_jobfunc.c
+@@ -155,7 +155,7 @@
+ 
+ #include "user_info.h" /* remove_server_suffix() */
+ 
+-#define MSG_LEN_LONG 160
++#define MSG_LEN_LONG 2048
+ 
+ /* Private Functions */
+ 

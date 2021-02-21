@@ -11,19 +11,18 @@ RUN apt-get update && \
 
 RUN mkdir /build
 WORKDIR /build
+COPY torque_compile_on_newer_gcc.patch /build
 RUN git clone https://github.com/adaptivecomputing/torque.git && \
-    cd torque && git checkout 6.1.3
+    cd torque && git checkout 6.1.3 && \
+    patch -p1 <../torque_compile_on_newer_gcc.patch
 
 WORKDIR /build/torque
 
-RUN ./autogen.sh >/tmp/autogen.log 2>&1 && \
-    tail -n 20 /tmp/autogen.log && \
-    ./configure >/tmp/configure.log 2>&1 && \
-    tail -n 20 /tmp/configure.log && \
-    make >/tmp/make.log 2>&1 && \
-    tail -n 20 /tmp/make.log && \
-    make install >/tmp/make_install.log 2>&1 && \
-    tail -n 20 /tmp/make_install.log
+# Run command with output muted, if it fails, show output and exit
+RUN (./autogen.sh >/tmp/autogen.log 2>&1 || (tail -n 50 /tmp/autogen.log && exit 1)) && \
+    (./configure --disable-gcc-warnings >/tmp/configure.log 2>&1 || (tail -n 50 /tmp/configure.log && exit 1)) && \
+    (make >/tmp/make.log 2>&1 || (tail -n 50 /tmp/make.log && exit 1)) && \
+    (make install >/tmp/make_install.log 2>&1 || (tail -n 50 /tmp/make_install.log && exit 1))
 
 COPY start-services.sh /etc/start-services.sh
 RUN chmod +x /etc/start-services.sh

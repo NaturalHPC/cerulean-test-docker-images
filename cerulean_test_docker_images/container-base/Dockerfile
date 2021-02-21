@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.22
+FROM phusion/baseimage:18.04-1.0.0
 # build as cerulean-test-base
 
 USER root

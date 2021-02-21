@@ -36,11 +36,10 @@ COPY install_slurm.sh /usr/local/bin/
 COPY slurm_timeout.diff /usr/local/etc/
 WORKDIR /usr/local
 RUN apt-get update && \
-    apt-get --no-install-recommends install -y gcc make libssl-dev libmunge-dev tar wget patch && \
+    apt-get --no-install-recommends install -y gcc make libc6-dev libssl-dev \
+        libmunge-dev tar wget patch python && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
-RUN /bin/bash /usr/local/bin/install_slurm.sh slurm-15-08-13-1.tar.gz
 
 COPY slurm.conf /usr/local/etc/slurm/slurm.conf
 
