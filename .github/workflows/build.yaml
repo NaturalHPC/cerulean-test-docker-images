@@ -20,4 +20,4 @@ jobs:
           tags: mdstudio/cerulean-test-slurm-base:latest
 
       - name: Image digest
-        run echo ${{ steps.docker_build.outputs.digest }}
+        run: echo ${{ steps.docker_build.outputs.digest }}
