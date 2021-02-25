@@ -15,4 +15,4 @@ jobs:
       - name: Build containers
         run: |
           cd $GITHUB_WORKSPACE
-          scripts/build_containers.sh
+          scripts/build_images.sh
