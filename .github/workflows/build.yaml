@@ -13,4 +13,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build containers
-        run: scripts/build_containers.sh
+        run: |
+          cd $GITHUB_WORKSPACE
+          scripts/build_containers.sh
