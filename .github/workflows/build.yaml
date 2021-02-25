@@ -24,7 +24,7 @@ jobs:
 
       - name: Check if image was loaded
         run: |
-          docker image inspect mdstudio/cerulean-test-base:latest
+          docker image inspect cerulean-test-base:latest
 
       - name: Build WebDAV container
         uses: docker/build-push-action@v2
