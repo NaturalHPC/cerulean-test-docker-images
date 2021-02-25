@@ -21,7 +21,7 @@ WORKDIR /build/torque
 # Run command with output muted, if it fails, show output and exit
 RUN (./autogen.sh >/tmp/autogen.log 2>&1 || (tail -n 50 /tmp/autogen.log && exit 1)) && \
     (./configure --disable-gcc-warnings >/tmp/configure.log 2>&1 || (tail -n 50 /tmp/configure.log && exit 1)) && \
-    (make >/tmp/make.log 2>&1 || (tail -n 50 /tmp/make.log && exit 1)) && \
+    (make >/tmp/make.log 2>&1 || (cat /tmp/configure.log && tail -n 50 /tmp/make.log && exit 1)) && \
     (make install >/tmp/make_install.log 2>&1 || (tail -n 50 /tmp/make_install.log && exit 1))
 
 COPY start-services.sh /etc/start-services.sh
