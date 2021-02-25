@@ -22,6 +22,10 @@ jobs:
           tags: mdstudio/cerulean-test-base:latest
           load: true
 
+      - name: Check if image was loaded
+        run: |
+          docker image inspect mdstudio/cerulean-test-base:latest
+
       - name: Build WebDAV container
         uses: docker/build-push-action@v2
         with:
