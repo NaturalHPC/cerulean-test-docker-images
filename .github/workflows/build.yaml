@@ -26,3 +26,16 @@ jobs:
         with:
           context: cerulean_test_docker_images/container-webdav
           tags: mdstudio/cerulean-test-webdav:latest
+
+      - name: Build Torque container
+        uses: docker/build-push-action@v2
+        with:
+          context: cerulean_test_docker_images/container-torque
+          tags: mdstudio/cerulean-test-torque-6:latest
+
+      - name: Build SLURM  container
+        uses: docker/build-push-action@v2
+        with:
+          context: cerulean_test_docker_images/container-slurm
+          file: {context}/slurm-16-05.Dockerfile
+          tags: mdstudio/cerulean-test-slurm-16-05:latest
