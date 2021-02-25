@@ -1,4 +1,4 @@
-FROM mdstudio/cerulean-test-base:latest
+FROM cerulean-test-base:latest
 
 USER root
 
