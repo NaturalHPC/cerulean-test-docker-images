@@ -16,3 +16,9 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           scripts/build_images.sh
+
+      - name: Push containers
+        run: |
+          docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password ${{secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          docker push -a
+
