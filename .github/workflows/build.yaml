@@ -1,18 +1,18 @@
-# Build images on push and pull request
+# Build images on push and pull request to non-master branches
 name: build_images
-on: [push, pull_request]
+on:
+  push:
+    branches-ignore:
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Check out
+        uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-
-    - name: Build images
-      run: |
-        cd $GITHUB_WORKSPACE
-        scripts/build_images.sh
+      - name: Build containers
+        run: |
+          cd $GITHUB_WORKSPACE
+          scripts/build_images.sh
