@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 mkdir /home/cerulean/test_files
 mkdir /home/cerulean/test_files/links
 
@@ -28,7 +30,8 @@ ln -s /home/cerulean/test_files/links/link4 /home/cerulean/test_files/links/link
 mkfifo /home/cerulean/test_files/fifo
 
 # character device
-mknod /home/cerulean/test_files/chardev c 0 0
+# Removed, Docker no longer allows this when building, or at least not easily
+# mknod /home/cerulean/test_files/chardev c 0 0
 
 # block device
 mknod /home/cerulean/test_files/blockdev b 0 0
