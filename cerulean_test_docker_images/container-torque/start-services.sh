@@ -15,7 +15,7 @@ echo '$pbsserver cerulean-test-torque-6' > /var/spool/torque/mom_priv/config
 # Setup Torque
 . /etc/profile.d/torque.sh
 trqauthd start
-yes | /bin/bash /build/torque-6.1.2/torque.setup root localhost
+yes | /bin/bash /build/torque/torque.setup root localhost
 qmgr -c 'create queue debug queue_type=execution'
 qmgr -c 'set queue debug enabled=true'
 qmgr -c 'set queue debug started=true'
