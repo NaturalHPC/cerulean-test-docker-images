@@ -20,7 +20,7 @@ echo -e "\nstarting compute nodes..."
 
 echo -e "\nsleeping for a few seconds to avoid problems..."
 
-while [ ! -f /var/log/slurm/accounting ] ; do
+while [ ! -f /var/log/slurm/job_completions ] ; do
     sleep 1
 done
 
