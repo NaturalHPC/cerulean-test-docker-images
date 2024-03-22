@@ -33,7 +33,7 @@ echo -e "\nStartup complete"
 
 while [ 1 ] ; do
     sleep $(( ( RANDOM % 20 ) + 1 ))
-    PIDS=$(ps auwx | grep 'sshd: cerulean' | cut -c 10-15)
+    PIDS=$(ps auwx | grep 'sshd: cerulean' | cut -c 10-16)
     for PID in $PIDS ; do
         kill $PID >/dev/null 2>&1
     done
