@@ -90,8 +90,9 @@ have a look at the `contribution guidelines <CONTRIBUTING.rst>`_.
 License
 *******
 
-The contents of this repository are Copyright (c) 2018-2021 Netherlands eScience
-Center, VU University Amsterdam and University of Amsterdam
+The contents of this repository are Copyright 2018-2021 Netherlands eScience
+Center, VU University Amsterdam and University of Amsterdam, and Copyright 2024
+Netherlands eScience Center.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -110,8 +111,9 @@ Image contents
 
 The images contain an operating system environment based on Ubuntu 18.04, with
 each component licensed under its own license. In particular, we use
-``phusion/baseimage:18.04-1.0.0`` as a base image, which contains modifications
-licensed under the MIT license as follows:
+``phusion/baseimage::18.04-10.0.`` and ``phusion/baseimage:jammy-1.0.2`` as base
+images, which are based on Ubuntu and contain modifications licensed under the
+MIT license as follows:
 
 Copyright (c) 2013-2015 Phusion Holding B.V.
 
