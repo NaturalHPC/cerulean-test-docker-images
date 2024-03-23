@@ -1,4 +1,4 @@
-FROM naturalhpc/cerulean-test-base:latest
+FROM naturalhpc/cerulean-test-base-old:latest
 
 USER root
 
@@ -32,12 +32,12 @@ COPY slurm.cert /usr/local/etc/slurm/slurm.cert
 COPY slurm.key /usr/local/etc/slurm/slurm.key
 RUN chmod 600 /usr/local/etc/slurm/slurm.key
 
-COPY install_slurm.sh /usr/local/bin/
+COPY install_slurm_old.sh /usr/local/bin/install_slurm.sh
 COPY slurm_timeout.diff /usr/local/etc/
 WORKDIR /usr/local
 RUN apt-get update && \
     apt-get --no-install-recommends install -y gcc make libc6-dev libssl-dev \
-        libmunge-dev tar wget patch python3 && \
+        libmunge-dev tar wget patch python && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

@@ -1,5 +1,5 @@
-FROM phusion/baseimage:jammy-1.0.2
-# build as cerulean-test-base
+FROM phusion/baseimage:18.04-1.0.0
+# build as cerulean-test-base-old
 
 USER root
 
