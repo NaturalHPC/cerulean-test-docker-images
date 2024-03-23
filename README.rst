@@ -10,46 +10,52 @@ The implementation borrows heavily from the Xenon testing Docker images.
 
 This repository currently offers 9 images:
 
-``cerulean-test-base``
+``cerulean-fake-base``
   A base image containing SSH and a ``cerulean`` user. You can log in using
   either the password ``kingfisher``, or the private key named ``id1_rsa`` in
   ``cerulean_test_docker_images/container_base/.ssh/``, or the private key named
   ``id2_rsa`` with passphrase ``kingfisher``.
 
-``cerulean-test-webdav``
-  An image based on cerulean-test-base, which has nginx installed and running,
+``cerulean-fake-base-old``
+  Like ``cerulean-fake-base`` but with Ubuntu 18.04 rather than 22.04.
+
+``cerulean-fake-webdav``
+  An image based on cerulean-fake-base, which has nginx installed and running,
   with WebDAV configured on ``/files``. You can connect on port 80 using HTTP
   or on port 443 using HTTPS. The server certificate is in
   ``cerulean_test_docker_images/container_base/.ssh/``.
 
-``cerulean-test-torque-6``
-  An image based on cerulean-test-base, which also has Torque 6 installed and
+``cerulean-fake-torque-6``
+  An image based on cerulean-fake-base, which also has Torque 6 installed and
   running. The virtual cluster has 4 nodes, in two queues named ``batch`` and
   ``debug``. This container must be run with the ``--cap-add SYS_RESOURCE``
   option.
 
-``cerulean-test-slurm-16-05``
-  An image based on cerulean-test-base, which also has Slurm 16.05 installed and
+``cerulean-fake-slurm-16-05``
+  An image based on cerulean-fake-base, which also has Slurm 16.05 installed and
   running. The virtual cluster has 4 nodes, in two queues named ``batch`` and
   ``debug``.
 
-``cerulean-test-slurm-17-02``
-  Like cerulean-test-slurm-16-05, but with Slurm 17.02.
+``cerulean-fake-slurm-17-02``
+  Like cerulean-fake-slurm-16-05, but with Slurm 17.02.
 
-``cerulean-test-slurm-17-11``
-  Like cerulean-test-slurm-16-05, but with Slurm 17.11.
+``cerulean-fake-slurm-17-11``
+  Like cerulean-fake-slurm-16-05, but with Slurm 17.11.
 
-``cerulean-test-slurm-18-08``
-  Like cerulean-test-slurm-16-05, but with Slurm 18.08.
+``cerulean-fake-slurm-18-08``
+  Like cerulean-fake-slurm-16-05, but with Slurm 18.08.
 
-``cerulean-test-slurm-19-05``
-  Like cerulean-test-slurm-16-05, but with Slurm 19.05.
+``cerulean-fake-slurm-19-05``
+  Like cerulean-fake-slurm-16-05, but with Slurm 19.05.
 
-``cerulean-test-slurm-20-02``
-  Like cerulean-test-slurm-16-05, but with Slurm 20.02.
+``cerulean-fake-slurm-20-02``
+  Like cerulean-fake-slurm-16-05, but with Slurm 20.02.
 
-``cerulean-test-slurm-20-11``
-  Like cerulean-test-slurm-16-05, but with Slurm 20.11.
+``cerulean-fake-slurm-20-11``
+  Like cerulean-fake-slurm-16-05, but with Slurm 20.11.
+
+``cerulean-fake-slurm-flaky``
+  Like cerulean-fake-slurm-17-11, but kills ssh connections regularly.
 
 Note that these images are not entirely stable on purpose, they will be rebuilt
 from time to time with the latest libraries. It's all within a single version of
@@ -63,13 +69,13 @@ These images are built automatically on Docker Hub, so you can just pull them:
 
 .. code-block:: console
 
-  docker pull cerulean-test-base
+  docker pull cerulean-fake-base
 
 Then to run them, use
 
 .. code-block:: console
 
-  docker run --name cerulean-test-container -p 22:10022 cerulean-test-base
+  docker run --name cerulean-fake-container -p 22:10022 cerulean-fake-base
 
 And then you can connect to them using
 
@@ -135,7 +141,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-The ``cerulean-test-torque-6`` image contains Torque 6:
+The ``cerulean-fake-torque-6`` image contains Torque 6:
 
 TORQUE is a modification of OpenPBS which was developed by NASA Ames
 Research Center, Lawrence Livermore National Laboratory, and Veridian
