@@ -1,9 +1,9 @@
-# Build images and push to Docker Hub on push to the master branch
+# Build images and push to Docker Hub on push to the main branch
 name: build_push_images
 on:
   push:
     branches:
-      - master
+      - main
   schedule:
     - cron: '0 5 * * 0'     # Rebuild every Sunday
 jobs:
@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Check out
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Build containers
         run: |
@@ -22,16 +22,17 @@ jobs:
       - name: Push containers
         run: |
           echo ${{secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
-          docker push mdstudio/cerulean-test-base
-          docker push mdstudio/cerulean-test-webdav
-          docker push mdstudio/cerulean-test-torque-6
-          docker push mdstudio/cerulean-test-slurm-base
-          docker push mdstudio/cerulean-test-slurm-16-05
-          docker push mdstudio/cerulean-test-slurm-17-02
-          docker push mdstudio/cerulean-test-slurm-17-11
-          docker push mdstudio/cerulean-test-slurm-18-08
-          docker push mdstudio/cerulean-test-slurm-19-05
-          docker push mdstudio/cerulean-test-slurm-20-02
-          docker push mdstudio/cerulean-test-slurm-20-11
-          docker push mdstudio/cerulean-test-flaky
-
+          docker push naturalhpc/cerulean-test-base
+          docker push naturalhpc/cerulean-test-base-old
+          docker push naturalhpc/cerulean-test-webdav
+          docker push naturalhpc/cerulean-test-torque-6
+          docker push naturalhpc/cerulean-test-slurm-base
+          docker push naturalhpc/cerulean-test-slurm-base-old
+          docker push naturalhpc/cerulean-test-slurm-16-05
+          docker push naturalhpc/cerulean-test-slurm-17-02
+          docker push naturalhpc/cerulean-test-slurm-17-11
+          docker push naturalhpc/cerulean-test-slurm-18-08
+          docker push naturalhpc/cerulean-test-slurm-19-05
+          docker push naturalhpc/cerulean-test-slurm-20-02
+          docker push naturalhpc/cerulean-test-slurm-20-11
+          docker push naturalhpc/cerulean-test-flaky
