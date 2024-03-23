@@ -1,5 +1,5 @@
 FROM phusion/baseimage:jammy-1.0.2
-# build as cerulean-test-base
+# build as cerulean-fake-base
 
 USER root
 

@@ -1,4 +1,4 @@
-FROM naturalhpc/cerulean-test-base:latest
+FROM naturalhpc/cerulean-fake-base:latest
 
 USER root
 

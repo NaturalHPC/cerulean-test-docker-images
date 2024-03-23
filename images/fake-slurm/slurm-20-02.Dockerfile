@@ -1,4 +1,4 @@
-FROM naturalhpc/cerulean-test-slurm-base:latest
+FROM naturalhpc/cerulean-fake-slurm-base:latest
 
 USER root
 
