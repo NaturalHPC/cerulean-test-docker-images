@@ -1,4 +1,4 @@
-FROM mdstudio/cerulean-test-slurm-base:latest
+FROM naturalhpc/cerulean-fake-slurm-base:latest
 
 USER root
 

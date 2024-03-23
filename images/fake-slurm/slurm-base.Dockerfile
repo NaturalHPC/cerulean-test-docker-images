@@ -1,4 +1,4 @@
-FROM mdstudio/cerulean-test-base:latest
+FROM naturalhpc/cerulean-fake-base:latest
 
 USER root
 
@@ -37,7 +37,7 @@ COPY slurm_timeout.diff /usr/local/etc/
 WORKDIR /usr/local
 RUN apt-get update && \
     apt-get --no-install-recommends install -y gcc make libc6-dev libssl-dev \
-        libmunge-dev tar wget patch python && \
+        libmunge-dev tar wget patch python3 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

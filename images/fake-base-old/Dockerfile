@@ -1,5 +1,5 @@
 FROM phusion/baseimage:18.04-1.0.0
-# build as cerulean-test-base
+# build as cerulean-fake-base-old
 
 USER root
 
