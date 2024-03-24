@@ -1,6 +1,11 @@
 FROM phusion/baseimage:18.04-1.0.0
 # build as cerulean-fake-base-old
 
+LABEL org.opencontainers.image.title="Cerulean fake base image (older version)"
+LABEL org.opencontainers.image.description="Base image for older testing images"
+LABEL org.opencontainers.image.source="https://github.com/NaturalHPC/cerulean-test-docker-images"
+LABEL org.opencontainers.image.url="https://github.com/NaturalHPC/cerulean-test-docker-images"
+
 USER root
 
 # Add cerulean user

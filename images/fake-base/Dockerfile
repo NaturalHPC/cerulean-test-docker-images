@@ -1,6 +1,11 @@
 FROM phusion/baseimage:jammy-1.0.2
 # build as cerulean-fake-base
 
+LABEL org.opencontainers.image.title="Cerulean fake base image"
+LABEL org.opencontainers.image.description="Base image for testing images"
+LABEL org.opencontainers.image.source="https://github.com/NaturalHPC/cerulean-test-docker-images"
+LABEL org.opencontainers.image.url="https://github.com/NaturalHPC/cerulean-test-docker-images"
+
 USER root
 
 # Add cerulean user

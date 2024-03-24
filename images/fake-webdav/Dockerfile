@@ -1,5 +1,10 @@
 FROM naturalhpc/cerulean-fake-base:latest
 
+LABEL org.opencontainers.image.title="Cerulean fake WebDAV server"
+LABEL org.opencontainers.image.description="Fake server for testing Cerulean (and other software) against"
+LABEL org.opencontainers.image.source="https://github.com/NaturalHPC/cerulean-test-docker-images"
+LABEL org.opencontainers.image.url="https://github.com/NaturalHPC/cerulean-test-docker-images"
+
 USER root
 
 # Install nginx and create directories

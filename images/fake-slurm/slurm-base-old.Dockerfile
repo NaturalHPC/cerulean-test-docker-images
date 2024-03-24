@@ -1,5 +1,10 @@
 FROM naturalhpc/cerulean-fake-base-old:latest
 
+LABEL org.opencontainers.image.title="Cerulean fake SLURM cluster base image"
+LABEL org.opencontainers.image.description="Base image for older SLURM testing images"
+LABEL org.opencontainers.image.source="https://github.com/NaturalHPC/cerulean-test-docker-images"
+LABEL org.opencontainers.image.url="https://github.com/NaturalHPC/cerulean-test-docker-images"
+
 USER root
 
 # Install munge (needed by slurm)

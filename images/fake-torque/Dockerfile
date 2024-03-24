@@ -1,5 +1,10 @@
 FROM naturalhpc/cerulean-fake-base-old:latest
 
+LABEL org.opencontainers.image.title="Cerulean fake Torque 6.1.3 cluster"
+LABEL org.opencontainers.image.description="Fake cluster for testing Cerulean (and other software) against"
+LABEL org.opencontainers.image.source="https://github.com/NaturalHPC/cerulean-test-docker-images"
+LABEL org.opencontainers.image.url="https://github.com/NaturalHPC/cerulean-test-docker-images"
+
 USER root
 
 RUN apt-get update && \
