@@ -19,12 +19,13 @@ RUN apt-get update && \
     chmod 775 /home/webdav /home/webdav/files
 
 # Patch up test files
+# The working symlinks need to be remade to point to the right file.
+# nginx doesn't like broken symlinks, and WebDAV doesn't support symlinks,
+# so we remove them to avoid 500 Internal Server Errors.
 RUN mv /home/cerulean/test_files /home/webdav/files/home/cerulean/test_files && \
-    rm /home/webdav/files/home/cerulean/test_files/links/link[0134] && \
+    rm /home/webdav/files/home/cerulean/test_files/links/link[01234] && \
     ln -s file0 /home/webdav/files/home/cerulean/test_files/links/link0 && \
     ln -s link0 /home/webdav/files/home/cerulean/test_files/links/link1 && \
-    ln -s link4 /home/webdav/files/home/cerulean/test_files/links/link3 && \
-    ln -s link3 /home/webdav/files/home/cerulean/test_files/links/link4 && \
     chown -R www-data:www-data /home/webdav
 
 # Add WebDAV configuration
