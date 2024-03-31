@@ -10,7 +10,7 @@ set -e
 cd /usr/local
 
 apt-get update
-apt-get --no-install-recommends install -y gcc make libssl-dev libmunge-dev tar wget patch python3 python-is-python3
+apt-get --no-install-recommends install -y gcc make libssl-dev libmunge-dev munge tar wget patch python3 python-is-python3
 
 NAME=$(basename -s .tar.gz $1)
 
@@ -35,8 +35,8 @@ cd /usr/local
 rm -rf /usr/local/slurm-$NAME
 rm /usr/local/$1
 
-# NOTE: removing tar seems to break stuff.
-apt-get purge -y gcc make wget libssl-dev libmunge-dev python3
+# NOTE: removing tar seems to break stuff, and munge needs Python3 to run
+apt-get purge -y gcc make wget libssl-dev libmunge-dev
 apt-get autoremove -y
 apt-get clean -y
 echo 'Done.'
