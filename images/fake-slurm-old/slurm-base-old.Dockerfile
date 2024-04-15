@@ -37,17 +37,17 @@ COPY slurm.cert /usr/local/etc/slurm/slurm.cert
 COPY slurm.key /usr/local/etc/slurm/slurm.key
 RUN chmod 600 /usr/local/etc/slurm/slurm.key
 
-COPY install_slurm_old.sh /usr/local/bin/install_slurm.sh
+COPY install_slurm.sh /usr/local/bin/install_slurm.sh
 COPY slurm_timeout.diff /usr/local/etc/
 WORKDIR /usr/local
 RUN apt-get update && \
     apt-get --no-install-recommends install -y gcc make libc6-dev libssl-dev \
         libmunge-dev tar wget patch python
 
-COPY slurm_old.conf /usr/local/etc/slurm/slurm.conf
+COPY slurm.conf /usr/local/etc/slurm/slurm.conf
 
 # Add start-up scripts
-COPY start-services-old.sh /etc/start-services.sh
+COPY start-services.sh /etc/start-services.sh
 RUN chmod +x /etc/start-services.sh
 CMD /etc/start-services.sh
 
