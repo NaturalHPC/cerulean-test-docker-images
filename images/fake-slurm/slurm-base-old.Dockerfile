@@ -42,13 +42,15 @@ COPY slurm_timeout.diff /usr/local/etc/
 WORKDIR /usr/local
 RUN apt-get update && \
     apt-get --no-install-recommends install -y gcc make libc6-dev libssl-dev \
-        libmunge-dev tar wget patch python && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+        libmunge-dev tar wget patch python
 
-COPY slurm.conf /usr/local/etc/slurm/slurm.conf
+COPY slurm_old.conf /usr/local/etc/slurm/slurm.conf
 
 # Add start-up scripts
-COPY start-services.sh /etc/start-services.sh
+COPY start-services-old.sh /etc/start-services.sh
 RUN chmod +x /etc/start-services.sh
 CMD /etc/start-services.sh
+
+# Clean up apt cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
