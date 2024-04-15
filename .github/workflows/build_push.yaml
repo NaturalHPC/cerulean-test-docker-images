@@ -62,5 +62,17 @@ jobs:
           docker tag naturalhpc/cerulean-fake-slurm-20-11 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-20-11:latest
           docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-20-11:latest
           #
+          docker tag naturalhpc/cerulean-fake-slurm-21-08 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-21-08:latest
+          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-21-08:latest
+          #
+          docker tag naturalhpc/cerulean-fake-slurm-22-05 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-22-05:latest
+          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-22-05:latest
+          #
+          docker tag naturalhpc/cerulean-fake-slurm-23-02 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-23-02:latest
+          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-23-02:latest
+          #
+          docker tag naturalhpc/cerulean-fake-slurm-23-11 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-23-11:latest
+          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-23-11:latest
+          #
           docker tag naturalhpc/cerulean-fake-slurm-flaky ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-flaky:latest
           docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-flaky:latest
