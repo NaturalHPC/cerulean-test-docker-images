@@ -51,6 +51,10 @@ COPY start-services-old.sh /etc/start-services.sh
 RUN chmod +x /etc/start-services.sh
 CMD /etc/start-services.sh
 
+# Add healthcheck command
+RUN apt-get update && apt-get install netcat-openbsd
+HEALTHCHECK CMD /bin/nc -z localhost 22
+
 # Clean up apt cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
