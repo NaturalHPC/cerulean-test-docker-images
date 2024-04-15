@@ -69,6 +69,22 @@ echo '*************************************'
 echo '           fake-slurm-20-11'
 echo '*************************************'
 docker buildx build -t naturalhpc/cerulean-fake-slurm-20-11 -f slurm-20-11.Dockerfile .
+echo '*************************************'
+echo '           fake-slurm-21-08'
+echo '*************************************'
+docker buildx build -t naturalhpc/cerulean-fake-slurm-21-08 -f slurm-21-08.Dockerfile .
+echo '*************************************'
+echo '           fake-slurm-22-05'
+echo '*************************************'
+docker buildx build -t naturalhpc/cerulean-fake-slurm-22-05 -f slurm-22-05.Dockerfile .
+echo '*************************************'
+echo '           fake-slurm-23-02'
+echo '*************************************'
+docker buildx build -t naturalhpc/cerulean-fake-slurm-23-02 -f slurm-23-02.Dockerfile .
+echo '*************************************'
+echo '           fake-slurm-23-11'
+echo '*************************************'
+docker buildx build -t naturalhpc/cerulean-fake-slurm-23-11 -f slurm-23-11.Dockerfile .
 cd $BASEDIR
 
 cd images/fake-slurm-flaky
