@@ -7,5 +7,6 @@ LABEL org.opencontainers.image.url="https://github.com/NaturalHPC/cerulean-test-
 
 USER root
 
-RUN /bin/bash /usr/local/bin/install_slurm.sh slurm-20-02-6-1.tar.gz
+RUN /bin/bash /usr/local/bin/install_slurm.sh slurm-20-02-7-1.tar.gz
 COPY slurm_19_05.conf /usr/local/etc/slurm/slurm.conf
+RUN rm /usr/local/etc/slurm/cgroup.conf
