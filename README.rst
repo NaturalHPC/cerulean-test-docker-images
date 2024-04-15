@@ -2,13 +2,18 @@
 Cerulean test Docker images
 ###########################
 
+.. image:: https://github.com/naturalhpc/cerulean-test-docker-images/actions/workflows/build_push.yaml/badge.svg
+   :target: https://github.com/naturalhpc/cerulean-test-docker-images/actions
+   :alt: Build status badge
+
 A set of Docker images containing various cluster schedulers for testing
 purposes. These images are used for testing Cerulean, but may be useful to
-others.
+others. No attempt has been made at creating a secure configuration, just
+a working one.
 
-The implementation borrows heavily from the Xenon testing Docker images.
+The implementation was developed from the Xenon testing Docker images.
 
-This repository currently offers 9 images:
+This repository currently offers 16 images:
 
 ``cerulean-fake-base``
   A base image containing SSH and a ``cerulean`` user. You can log in using
@@ -54,6 +59,18 @@ This repository currently offers 9 images:
 ``cerulean-fake-slurm-20-11``
   Like cerulean-fake-slurm-16-05, but with Slurm 20.11.
 
+``cerulean-fake-slurm-21-08``
+  Like cerulean-fake-slurm-16-05, but with Slurm 21.08.
+
+``cerulean-fake-slurm-22-05``
+  Like cerulean-fake-slurm-16-05, but with Slurm 22.05.
+
+``cerulean-fake-slurm-23-02``
+  Like cerulean-fake-slurm-16-05, but with Slurm 23.02.
+
+``cerulean-fake-slurm-23-11``
+  Like cerulean-fake-slurm-16-05, but with Slurm 23.11.
+
 ``cerulean-fake-slurm-flaky``
   Like cerulean-fake-slurm-17-11, but kills ssh connections regularly.
 
@@ -65,17 +82,23 @@ for testing purposes, not production.
 Installing
 ----------
 
-These images are built automatically on Docker Hub, so you can just pull them:
+These images are built automatically on Github, so you can pull them to your local
+machine using:
 
 .. code-block:: console
 
-  docker pull cerulean-fake-base
+  docker pull ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-base
+
+
+(With apologies for the long URL, GitHub's container publishing system is a bit of
+a hack.)
 
 Then to run them, use
 
 .. code-block:: console
 
-  docker run --name cerulean-fake-container -p 22:10022 cerulean-fake-base
+  docker run --name cerulean-fake-container -p 10022:22 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-base
+
 
 And then you can connect to them using
 
@@ -85,6 +108,10 @@ And then you can connect to them using
 
 For the WebDAV container, you'll want to map its internal ports 80 and/or 443 to
 some port on the host, instead of 22.
+
+The SSH password is `kingfisher`, or you can log in using
+`images/fake-base/.ssh/id1_rsa` with no passphrase, or using
+`images/fake-base/.ssh/id2_rsa` with passphrase `kingfisher`.
 
 
 Contributing
@@ -115,11 +142,11 @@ limitations under the License.
 Image contents
 --------------
 
-The images contain an operating system environment based on Ubuntu 18.04, with
-each component licensed under its own license. In particular, we use
-``phusion/baseimage::18.04-10.0.`` and ``phusion/baseimage:jammy-1.0.2`` as base
-images, which are based on Ubuntu and contain modifications licensed under the
-MIT license as follows:
+The images contain an operating system environment based on Ubuntu 18.04 or
+Ubuntu 22.04, with each component licensed under its own license. In particular,
+we use ``phusion/baseimage::18.04-10.0.`` and ``phusion/baseimage:jammy-1.0.2``
+as base images, which are based on Ubuntu and contain modifications licensed under
+the MIT license as follows:
 
 Copyright (c) 2013-2015 Phusion Holding B.V.
 
