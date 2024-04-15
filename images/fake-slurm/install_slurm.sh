@@ -24,7 +24,7 @@ echo 'Configuring...'
 ./configure --prefix=/usr/local --sysconfdir=/usr/local/etc/slurm >/tmp/configure.log 2>&1 || (cat /tmp/configure.log && exit 1)
 tail -n 20 /tmp/configure.log
 echo 'Building...'
-make >/tmp/make.log 2>&1 || (cat /tmp/make.log && exit 1)
+make -j 4 >/tmp/make.log 2>&1 || (cat /tmp/make.log && exit 1)
 tail -n 20 /tmp/make.log
 echo 'Installing...'
 make install >/tmp/make_install.log 2>&1 || (cat /tmp/make_install.log && exit 1)
