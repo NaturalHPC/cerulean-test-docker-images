@@ -41,9 +41,6 @@ jobs:
           docker tag naturalhpc/cerulean-fake-slurm-base-old ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-base-old:latest
           docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-base-old:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-16-05 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-16-05:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-16-05:latest
-          #
           docker tag naturalhpc/cerulean-fake-slurm-17-02 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-17-02:latest
           docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-17-02:latest
           #
