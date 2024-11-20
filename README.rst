@@ -36,40 +36,44 @@ This repository currently offers 16 images:
   ``debug``. This container must be run with the ``--cap-add SYS_RESOURCE``
   option.
 
-``cerulean-fake-slurm-16-05``
-  An image based on cerulean-fake-base, which also has Slurm 16.05 installed and
-  running. The virtual cluster has 4 nodes, in two queues named ``batch`` and
-  ``debug``.
-
 ``cerulean-fake-slurm-17-02``
-  Like cerulean-fake-slurm-16-05, but with Slurm 17.02.
+  An image based on cerulean-fake-base-old, which also has all the listed versions of
+  Slurm installed, and 17.02 loaded by default and running.
+
+  The container expects to be started with hostname `headnode`.
+
+  If the environment variable SELF_CONTAINED is set to 1 when starting the container,
+  it will run both the headnode and five nodes, which are in two queues named ``batch``
+  and ``debug``. If SELF_CONTAINED is not set, then you'll need to start five additional
+  containers with hostnames `node-0` through `node-4`, in the same network so that they
+  can connect to each other. See below.
 
 ``cerulean-fake-slurm-17-11``
-  Like cerulean-fake-slurm-16-05, but with Slurm 17.11.
+  Like cerulean-fake-slurm-17-02, but with Slurm 17.11.
 
 ``cerulean-fake-slurm-18-08``
-  Like cerulean-fake-slurm-16-05, but with Slurm 18.08.
+  Like cerulean-fake-slurm-17-02, but with Slurm 18.08.
 
 ``cerulean-fake-slurm-19-05``
-  Like cerulean-fake-slurm-16-05, but with Slurm 19.05.
+  Like cerulean-fake-slurm-17-02, but with Slurm 19.05.
 
 ``cerulean-fake-slurm-20-02``
-  Like cerulean-fake-slurm-16-05, but with Slurm 20.02.
+  Like cerulean-fake-slurm-17-02, but with Slurm 20.02.
 
 ``cerulean-fake-slurm-20-11``
-  Like cerulean-fake-slurm-16-05, but with Slurm 20.11.
+  Like cerulean-fake-slurm-17-02, but based on cerulean-fake-base and with Slurm 20.11.
 
 ``cerulean-fake-slurm-21-08``
-  Like cerulean-fake-slurm-16-05, but with Slurm 21.08.
+  Like cerulean-fake-slurm-20-11, but with Slurm 21.08.
 
 ``cerulean-fake-slurm-22-05``
-  Like cerulean-fake-slurm-16-05, but with Slurm 22.05.
+  Like cerulean-fake-slurm-20-11, but with Slurm 22.05.
 
 ``cerulean-fake-slurm-23-02``
-  Like cerulean-fake-slurm-16-05, but with Slurm 23.02.
+  Like cerulean-fake-slurm-20-11, but with Slurm 23.02.
 
 ``cerulean-fake-slurm-23-11``
-  Like cerulean-fake-slurm-16-05, but with Slurm 23.11.
+  Like cerulean-fake-slurm-20-11, but with Slurm 23.11.
 
 ``cerulean-fake-slurm-flaky``
   Like cerulean-fake-slurm-17-11, but kills ssh connections regularly.
@@ -93,6 +97,9 @@ machine using:
 (With apologies for the long URL, GitHub's container publishing system is a bit of
 a hack.)
 
+Running
+-------
+
 Then to run them, use
 
 .. code-block:: console
@@ -112,6 +119,32 @@ some port on the host, instead of 22.
 The SSH password is `kingfisher`, or you can log in using
 `images/fake-base/.ssh/id1_rsa` with no passphrase, or using
 `images/fake-base/.ssh/id2_rsa` with passphrase `kingfisher`.
+
+For Slurm containers, you can run a self-contained cluster using:
+
+.. code-block:: console
+
+  docker run -d -p 10022:22 --hostname headnode --env SELF_CONTAINED=1 --cap-add CAP_SYS_NICE ghcr.io/naturalhpc/cerulean-fake-slurm-22-05
+
+
+The CAP_SYS_NICE capability is needed because the Slurm configuration has core binding
+enabled, so it will try to do that and fail if it doesn't have CAP_SYS_NICE.
+
+Alternatively, you can run a multi-container fake cluster using
+
+.. code-block:: console
+
+  docker network create mynet
+  docker run -d --hostname headnode --network mynet -p 10022:22 ghcr.io/naturalhpc/cerulean-fake-slurm-22-05
+  docker run -d --hostname node-0 --network mynet ghcr.io/naturalhpc/cerulean-fake-slurm-22-05
+  docker run -d --hostname node-1 --network mynet ghcr.io/naturalhpc/cerulean-fake-slurm-22-05
+  docker run -d --hostname node-2 --network mynet ghcr.io/naturalhpc/cerulean-fake-slurm-22-05
+  docker run -d --hostname node-3 --network mynet ghcr.io/naturalhpc/cerulean-fake-slurm-22-05
+  docker run -d --hostname node-4 --network mynet ghcr.io/naturalhpc/cerulean-fake-slurm-22-05
+
+
+You can then ssh to localhost on port 10022 to connect to the fake cluster headnode and
+submit jobs.
 
 
 Contributing

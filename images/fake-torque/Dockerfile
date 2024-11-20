@@ -1,4 +1,4 @@
-FROM naturalhpc/cerulean-fake-base-old:latest
+FROM naturalhpc/cerulean-fake-scheduler-old:latest
 
 LABEL org.opencontainers.image.title="Cerulean fake Torque 6.1.3 cluster"
 LABEL org.opencontainers.image.description="Fake cluster for testing Cerulean (and other software) against"
@@ -29,8 +29,12 @@ RUN (./autogen.sh >/tmp/autogen.log 2>&1 || (tail -n 50 /tmp/autogen.log && exit
     (make >/tmp/make.log 2>&1 || (cat /tmp/configure.log && tail -n 50 /tmp/make.log && exit 1)) && \
     (make install >/tmp/make_install.log 2>&1 || (tail -n 50 /tmp/make_install.log && exit 1))
 
-COPY start-services.sh /etc/start-services.sh
-RUN chmod +x /etc/start-services.sh
-CMD /etc/start-services.sh
+RUN \
+    ln -s /var/spool/torque/mom_logs /var/log/mom_logs && \
+    ln -s /var/spool/torque/server_logs /var/log/server_logs && \
+    ln -s /var/spool/torque/sched_logs /var/log/sched_logs && \
+    ln -s /var/spool/torque/job_logs /var/log/job_logs
 
-HEALTHCHECK --interval=1s CMD ssh -o NoHostAuthenticationForLocalhost=yes -i /home/cerulean/.ssh/id1_rsa cerulean@localhost /bin/true && pbsnodes -l free $(hostname) || exit 1
+COPY 02_01_torque.sh /etc/start-services/02_01_torque.sh
+
+HEALTHCHECK --interval=5s CMD pbsnodes -l free

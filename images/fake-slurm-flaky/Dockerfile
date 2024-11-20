@@ -8,6 +8,5 @@ LABEL org.opencontainers.image.url="https://github.com/NaturalHPC/cerulean-test-
 USER root
 
 # Add start-up scripts
-COPY start-services.sh /etc/start-services.sh
-RUN chmod +x /etc/start-services.sh
-CMD /etc/start-services.sh
+COPY 03_01_flaky.sh /etc/start-services/03_01_flaky.sh
+

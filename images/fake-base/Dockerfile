@@ -18,16 +18,6 @@ RUN chmod 700 .ssh && \
 chmod 600 .ssh/id1_rsa .ssh/id2_rsa && \
 chmod 644 .ssh/authorized_keys .ssh/id1_rsa.pub .ssh/id2_rsa.pub && \
 chown -R cerulean:cerulean .ssh
-COPY cerulean_webdav.crt /home/cerulean/cerulean_webdav.crt
-
-# Create test files
-COPY create-test-files.sh /home/cerulean/create-test-files.sh
-RUN chmod +x /home/cerulean/create-test-files.sh && \
-    /home/cerulean/create-test-files.sh && \
-    chown -R cerulean:cerulean /home/cerulean/test_files
-RUN rm /home/cerulean/create-test-files.sh
-COPY endless-job.sh /usr/local/bin/endless-job.sh
-RUN chmod +x /usr/local/bin/endless-job.sh
 
 # Install SSH server
 RUN apt-get update && \
@@ -45,18 +35,11 @@ COPY ssh_host_rsa_key.pub /etc/ssh/ssh_host_rsa_key.pub
 RUN chmod 600 /etc/ssh/*_key
 EXPOSE 22
 
-# Enable server side debug output
-RUN echo "LogLevel DEBUG3" >>/etc/ssh/sshd_config
-RUN sed -i -e 's^Subsystem[[:space:]]*sftp[[:space:]]*/usr/lib/openssh/sftp-server^Subsystem sftp /usr/lib/openssh/sftp-server -l DEBUG3^' /etc/ssh/sshd_config
-
-
-# Add OpenMPI
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends openmpi-bin && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Load basic settings when running ssh -c
+RUN echo >>/home/cerulean/.bashrc && \
+    echo '. /etc/profile' >>/home/cerulean/.bashrc
 
 # Add start-up scripts
 COPY start-services.sh /etc/start-services.sh
-RUN chmod +x /etc/start-services.sh
+COPY start-services /etc/start-services
 CMD /etc/start-services.sh

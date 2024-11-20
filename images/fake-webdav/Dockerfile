@@ -1,4 +1,4 @@
-FROM naturalhpc/cerulean-fake-base:latest
+FROM naturalhpc/cerulean-fake-fileserver:latest
 
 LABEL org.opencontainers.image.title="Cerulean fake WebDAV server"
 LABEL org.opencontainers.image.description="Fake server for testing Cerulean (and other software) against"
@@ -35,6 +35,4 @@ COPY cerulean_webdav.key /etc/nginx/
 COPY cerulean_webdav.crt /etc/nginx/
 
 # Add start-up scripts
-COPY start-services.sh /etc/start-services.sh
-RUN chmod +x /etc/start-services.sh
-CMD /etc/start-services.sh
+COPY 02_01_nginx.sh /etc/start-services/02_01_nginx.sh

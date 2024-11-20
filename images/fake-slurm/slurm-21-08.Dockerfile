@@ -7,7 +7,5 @@ LABEL org.opencontainers.image.url="https://github.com/NaturalHPC/cerulean-test-
 
 USER root
 
-# Remove this, 21.08 is too old to support the options we're using and its defaults work
-RUN rm -f /usr/local/etc/slurm/cgroup.conf
+RUN echo "SLURM_VERSION=21-08" >/etc/start-services/slurm_version.sh
 
-RUN /bin/bash /usr/local/bin/install_slurm.sh slurm-21-08-8-2.tar.gz

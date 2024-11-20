@@ -1,9 +1,10 @@
 #!/bin/bash
-echo -e "\nstarting syslog-ng..."
-syslog-ng
 
-echo -e "\nstarting sshd..."
-/usr/sbin/sshd -De > /var/log/sshd.out.log 2> /var/log/sshd.err.log &
+scripts=$(ls -1 /etc/start-services/)
+
+for s in ${scripts} ; do
+    /etc/start-services/$s
+done
 
 echo -e "\nStartup complete"
 

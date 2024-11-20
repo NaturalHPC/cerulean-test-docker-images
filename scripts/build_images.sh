@@ -18,11 +18,25 @@ echo '*************************************'
 docker buildx build -t naturalhpc/cerulean-fake-base .
 cd $BASEDIR
 
+cd images/fake-fileserver
+echo '*************************************'
+echo '           fake-fileserver'
+echo '*************************************'
+docker buildx build -t naturalhpc/cerulean-fake-fileserver .
+cd $BASEDIR
+
 cd images/fake-webdav
 echo '*************************************'
 echo '            fake-webdav'
 echo '*************************************'
 docker buildx build -t naturalhpc/cerulean-fake-webdav .
+cd $BASEDIR
+
+cd images/fake-scheduler-old
+echo '*************************************'
+echo '         fake-scheduler-old'
+echo '*************************************'
+docker buildx build -t naturalhpc/cerulean-fake-scheduler-old .
 cd $BASEDIR
 
 cd images/fake-torque
@@ -38,10 +52,6 @@ echo '         fake-slurm-base-old'
 echo '*************************************'
 docker buildx build -t naturalhpc/cerulean-fake-slurm-base-old -f slurm-base-old.Dockerfile .
 echo '*************************************'
-echo '           fake-slurm-16-05'
-echo '*************************************'
-docker buildx build -t naturalhpc/cerulean-fake-slurm-16-05 -f slurm-16-05.Dockerfile .
-echo '*************************************'
 echo '           fake-slurm-17-02'
 echo '*************************************'
 docker buildx build -t naturalhpc/cerulean-fake-slurm-17-02 -f slurm-17-02.Dockerfile .
@@ -53,13 +63,6 @@ echo '*************************************'
 echo '           fake-slurm-18-08'
 echo '*************************************'
 docker buildx build -t naturalhpc/cerulean-fake-slurm-18-08 -f slurm-18-08.Dockerfile .
-cd $BASEDIR
-
-cd images/fake-slurm
-echo '*************************************'
-echo '           fake-slurm-base'
-echo '*************************************'
-docker buildx build -t naturalhpc/cerulean-fake-slurm-base -f slurm-base.Dockerfile .
 echo '*************************************'
 echo '           fake-slurm-19-05'
 echo '*************************************'
@@ -68,6 +71,20 @@ echo '*************************************'
 echo '           fake-slurm-20-02'
 echo '*************************************'
 docker buildx build -t naturalhpc/cerulean-fake-slurm-20-02 -f slurm-20-02.Dockerfile .
+cd $BASEDIR
+
+cd images/fake-scheduler
+echo '*************************************'
+echo '           fake-scheduler'
+echo '*************************************'
+docker buildx build -t naturalhpc/cerulean-fake-scheduler .
+cd $BASEDIR
+
+cd images/fake-slurm
+echo '*************************************'
+echo '           fake-slurm-base'
+echo '*************************************'
+docker buildx build -t naturalhpc/cerulean-fake-slurm-base -f slurm-base.Dockerfile .
 echo '*************************************'
 echo '           fake-slurm-20-11'
 echo '*************************************'
