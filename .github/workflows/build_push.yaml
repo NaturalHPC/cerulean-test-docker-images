@@ -23,53 +23,62 @@ jobs:
         run: |
           echo ${{secrets.GHCR_PAT }} | docker login ghcr.io --username ${{ secrets.GHCR_USERNAME }} --password-stdin
           #
-          docker tag naturalhpc/cerulean-fake-base ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-base:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-base:latest
+          docker tag naturalhpc/cerulean-fake-base-old ghcr.io/naturalhpc/cerulean-fake-base-old:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-base-old:latest
           #
-          docker tag naturalhpc/cerulean-fake-base-old ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-base-old:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-base-old:latest
+          docker tag naturalhpc/cerulean-fake-base ghcr.io/naturalhpc/cerulean-fake-base:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-base:latest
           #
-          docker tag naturalhpc/cerulean-fake-webdav ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-webdav:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-webdav:latest
+          docker tag naturalhpc/cerulean-fake-base ghcr.io/naturalhpc/cerulean-fake-fileserver:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-fileserver:latest
           #
-          docker tag naturalhpc/cerulean-fake-torque-6 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-torque-6:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-torque-6:latest
+          docker tag naturalhpc/cerulean-fake-webdav ghcr.io/naturalhpc/cerulean-fake-webdav:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-webdav:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-base ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-base:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-base:latest
+          docker tag naturalhpc/cerulean-fake-base ghcr.io/naturalhpc/cerulean-fake-scheduler-old:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-scheduler-old:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-base-old ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-base-old:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-base-old:latest
+          docker tag naturalhpc/cerulean-fake-torque-6 ghcr.io/naturalhpc/cerulean-fake-torque-6:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-torque-6:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-17-02 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-17-02:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-17-02:latest
+          docker tag naturalhpc/cerulean-fake-slurm-base-old ghcr.io/naturalhpc/cerulean-fake-slurm-base-old:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-slurm-base-old:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-17-11 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-17-11:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-17-11:latest
+          docker tag naturalhpc/cerulean-fake-slurm-17-02 ghcr.io/naturalhpc/cerulean-fake-slurm-17-02:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-slurm-17-02:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-18-08 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-18-08:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-18-08:latest
+          docker tag naturalhpc/cerulean-fake-slurm-17-11 ghcr.io/naturalhpc/cerulean-fake-slurm-17-11:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-slurm-17-11:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-19-05 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-19-05:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-19-05:latest
+          docker tag naturalhpc/cerulean-fake-slurm-18-08 ghcr.io/naturalhpc/cerulean-fake-slurm-18-08:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-slurm-18-08:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-20-02 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-20-02:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-20-02:latest
+          docker tag naturalhpc/cerulean-fake-slurm-19-05 ghcr.io/naturalhpc/cerulean-fake-slurm-19-05:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-slurm-19-05:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-20-11 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-20-11:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-20-11:latest
+          docker tag naturalhpc/cerulean-fake-slurm-20-02 ghcr.io/naturalhpc/cerulean-fake-slurm-20-02:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-slurm-20-02:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-21-08 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-21-08:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-21-08:latest
+          docker tag naturalhpc/cerulean-fake-base ghcr.io/naturalhpc/cerulean-fake-scheduler:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-scheduler:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-22-05 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-22-05:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-22-05:latest
+          docker tag naturalhpc/cerulean-fake-slurm-base ghcr.io/naturalhpc/cerulean-fake-slurm-base:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-slurm-base:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-23-02 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-23-02:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-23-02:latest
+          docker tag naturalhpc/cerulean-fake-slurm-20-11 ghcr.io/naturalhpc/cerulean-fake-slurm-20-11:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-slurm-20-11:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-23-11 ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-23-11:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-23-11:latest
+          docker tag naturalhpc/cerulean-fake-slurm-21-08 ghcr.io/naturalhpc/cerulean-fake-slurm-21-08:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-slurm-21-08:latest
           #
-          docker tag naturalhpc/cerulean-fake-slurm-flaky ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-flaky:latest
-          docker push ghcr.io/naturalhpc/cerulean-test-docker-images/cerulean-fake-slurm-flaky:latest
+          docker tag naturalhpc/cerulean-fake-slurm-22-05 ghcr.io/naturalhpc/cerulean-fake-slurm-22-05:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-slurm-22-05:latest
+          #
+          docker tag naturalhpc/cerulean-fake-slurm-23-02 ghcr.io/naturalhpc/cerulean-fake-slurm-23-02:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-slurm-23-02:latest
+          #
+          docker tag naturalhpc/cerulean-fake-slurm-23-11 ghcr.io/naturalhpc/cerulean-fake-slurm-23-11:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-slurm-23-11:latest
+          #
+          docker tag naturalhpc/cerulean-fake-slurm-flaky ghcr.io/naturalhpc/cerulean-fake-slurm-flaky:latest
+          docker push ghcr.io/naturalhpc/cerulean-fake-slurm-flaky:latest
