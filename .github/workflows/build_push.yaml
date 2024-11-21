@@ -29,13 +29,13 @@ jobs:
           docker tag naturalhpc/cerulean-fake-base ghcr.io/naturalhpc/cerulean-fake-base:latest
           docker push ghcr.io/naturalhpc/cerulean-fake-base:latest
           #
-          docker tag naturalhpc/cerulean-fake-base ghcr.io/naturalhpc/cerulean-fake-fileserver:latest
+          docker tag naturalhpc/cerulean-fake-fileserver ghcr.io/naturalhpc/cerulean-fake-fileserver:latest
           docker push ghcr.io/naturalhpc/cerulean-fake-fileserver:latest
           #
           docker tag naturalhpc/cerulean-fake-webdav ghcr.io/naturalhpc/cerulean-fake-webdav:latest
           docker push ghcr.io/naturalhpc/cerulean-fake-webdav:latest
           #
-          docker tag naturalhpc/cerulean-fake-base ghcr.io/naturalhpc/cerulean-fake-scheduler-old:latest
+          docker tag naturalhpc/cerulean-fake-scheduler-old ghcr.io/naturalhpc/cerulean-fake-scheduler-old:latest
           docker push ghcr.io/naturalhpc/cerulean-fake-scheduler-old:latest
           #
           docker tag naturalhpc/cerulean-fake-torque-6 ghcr.io/naturalhpc/cerulean-fake-torque-6:latest
@@ -59,7 +59,7 @@ jobs:
           docker tag naturalhpc/cerulean-fake-slurm-20-02 ghcr.io/naturalhpc/cerulean-fake-slurm-20-02:latest
           docker push ghcr.io/naturalhpc/cerulean-fake-slurm-20-02:latest
           #
-          docker tag naturalhpc/cerulean-fake-base ghcr.io/naturalhpc/cerulean-fake-scheduler:latest
+          docker tag naturalhpc/cerulean-fake-scheduler ghcr.io/naturalhpc/cerulean-fake-scheduler:latest
           docker push ghcr.io/naturalhpc/cerulean-fake-scheduler:latest
           #
           docker tag naturalhpc/cerulean-fake-slurm-base ghcr.io/naturalhpc/cerulean-fake-slurm-base:latest
