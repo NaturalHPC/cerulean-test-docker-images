@@ -7,5 +7,5 @@ LABEL org.opencontainers.image.url="https://github.com/NaturalHPC/cerulean-test-
 
 USER root
 
-RUN echo "SLURM_VERSION=20-02" >/etc/start-services/slurm_version.sh
+RUN echo "SLURM_VERSION=20-11" >/etc/start-services/slurm_version.sh
 
