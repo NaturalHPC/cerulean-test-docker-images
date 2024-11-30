@@ -16,14 +16,6 @@ RUN . /opt/spack/share/spack/setup-env.sh && \
 # Install SLURM
 RUN . /opt/spack/share/spack/setup-env.sh && \
     . $(spack location -i lmod)/lmod/lmod/init/bash && \
-    spack install --deprecated slurm@19-05-6-1+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@2.2.3
-
-RUN . /opt/spack/share/spack/setup-env.sh && \
-    . $(spack location -i lmod)/lmod/lmod/init/bash && \
-    spack install --deprecated slurm@20-02-4-1+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@2.2.3
-
-RUN . /opt/spack/share/spack/setup-env.sh && \
-    . $(spack location -i lmod)/lmod/lmod/init/bash && \
     spack install slurm@20-11-9-1+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@2.2.3
 
 RUN . /opt/spack/share/spack/setup-env.sh && \
