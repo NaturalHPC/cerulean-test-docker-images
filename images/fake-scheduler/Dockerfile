@@ -12,7 +12,7 @@ RUN apt-get update && \
         bzip2 cmake unzip
 
 RUN cd /opt && \
-    git clone --depth=100 --branch=releases/v0.22 https://github.com/spack/spack.git
+    git clone --depth=100 --branch=releases/v0.23 https://github.com/spack/spack.git
 
 RUN . /opt/spack/share/spack/setup-env.sh && \
     spack config add "modules:default:enable:[tcl]" && \

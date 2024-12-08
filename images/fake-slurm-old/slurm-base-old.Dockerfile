@@ -11,7 +11,7 @@ USER root
 # Install SLURM
 RUN . /opt/spack/share/spack/setup-env.sh && \
     . $(spack location -i lmod)/lmod/lmod/init/bash && \
-    spack install --deprecated slurm@17-02-6-1+pmix+cgroup sysconfdir=/etc/slurm ^pmix@2.2.3
+    spack install --deprecated slurm@17-02-6-1+pmix+cgroup sysconfdir=/etc/slurm ^pmix@2.2.3 ^dbus@1.14.10
 
 RUN . /opt/spack/share/spack/setup-env.sh && \
     . $(spack location -i lmod)/lmod/lmod/init/bash && \

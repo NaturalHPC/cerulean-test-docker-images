@@ -13,26 +13,40 @@ RUN . /opt/spack/share/spack/setup-env.sh && \
     spack install mariadb
 
 
+# Update Spack definitions for SLURM
+COPY slurm-package.py /opt/spack/var/spack/repos/builtin/packages/slurm/package.py
+
+
 # Install SLURM
 RUN . /opt/spack/share/spack/setup-env.sh && \
     . $(spack location -i lmod)/lmod/lmod/init/bash && \
-    spack install slurm@20-11-9-1+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@2.2.3
+    spack install --deprecated slurm@20-11-9-1+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@2.2.3
 
 RUN . /opt/spack/share/spack/setup-env.sh && \
     . $(spack location -i lmod)/lmod/lmod/init/bash && \
-    spack install slurm@21-08-8-2+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@3.2.3
+    spack install --deprecated slurm@21-08-8-2+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@3.2.3
 
 RUN . /opt/spack/share/spack/setup-env.sh && \
     . $(spack location -i lmod)/lmod/lmod/init/bash && \
-    spack install slurm@22-05-9-1+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@3.2.3
+    spack install --deprecated slurm@22-05-9-1+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@3.2.3
 
 RUN . /opt/spack/share/spack/setup-env.sh && \
     . $(spack location -i lmod)/lmod/lmod/init/bash && \
-    spack install slurm@23-02-7-1+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@3.2.3
+    spack install --deprecated slurm@23-02-8-1+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@3.2.3
+
+# Spack will only compile OpenMPI 5.x with pmix 4.2.4, and it needs hwloc 2, so we'll
+# use those so that derived images can install it properly.
+RUN . /opt/spack/share/spack/setup-env.sh && \
+    . $(spack location -i lmod)/lmod/lmod/init/bash && \
+    spack install slurm@23-11-10-1+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@4.2.4 ^hwloc@2
 
 RUN . /opt/spack/share/spack/setup-env.sh && \
     . $(spack location -i lmod)/lmod/lmod/init/bash && \
-    spack install slurm@23-11-1-1+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@3.2.3
+    spack install slurm@24-05-4-1+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@4.2.4 ^hwloc@2
+
+RUN . /opt/spack/share/spack/setup-env.sh && \
+    . $(spack location -i lmod)/lmod/lmod/init/bash && \
+    spack install slurm@24-11-0-1+mariadb+pmix+cgroup sysconfdir=/etc/slurm ^pmix@4.2.4 ^hwloc@2
 
 RUN . /opt/spack/share/spack/setup-env.sh && \
     . $(spack location -i lmod)/lmod/lmod/init/bash && \
@@ -98,7 +112,9 @@ RUN . /opt/spack/share/spack/setup-env.sh && \
     echo "SPACK_SLURM_21_08=$(spack location -i slurm@21-08)" >>/etc/start-services/spack_locations.sh && \
     echo "SPACK_SLURM_22_05=$(spack location -i slurm@22-05)" >>/etc/start-services/spack_locations.sh && \
     echo "SPACK_SLURM_23_02=$(spack location -i slurm@23-02)" >>/etc/start-services/spack_locations.sh && \
-    echo "SPACK_SLURM_23_11=$(spack location -i slurm@23-11)" >>/etc/start-services/spack_locations.sh
+    echo "SPACK_SLURM_23_11=$(spack location -i slurm@23-11)" >>/etc/start-services/spack_locations.sh && \
+    echo "SPACK_SLURM_24_05=$(spack location -i slurm@24-05)" >>/etc/start-services/spack_locations.sh && \
+    echo "SPACK_SLURM_24_11=$(spack location -i slurm@24-11)" >>/etc/start-services/spack_locations.sh
 
 
 # Add healthcheck command

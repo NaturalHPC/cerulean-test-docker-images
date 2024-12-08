@@ -12,6 +12,8 @@ docker image rm naturalhpc/cerulean-fake-slurm-21-08
 docker image rm naturalhpc/cerulean-fake-slurm-22-05
 docker image rm naturalhpc/cerulean-fake-slurm-23-02
 docker image rm naturalhpc/cerulean-fake-slurm-23-11
+docker image rm naturalhpc/cerulean-fake-slurm-24-05
+docker image rm naturalhpc/cerulean-fake-slurm-24-11
 docker image rm naturalhpc/cerulean-fake-slurm-flaky
 docker image rm naturalhpc/cerulean-fake-slurm-base
 docker image rm naturalhpc/cerulean-fake-slurm-base-old
