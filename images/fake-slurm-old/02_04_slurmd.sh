@@ -23,8 +23,9 @@ if [ $hostname == 'headnode' ] ; then
 
 else
     # start a single node based on hostname
-    echo -e "\nstarting compute node ${hostname}..."
-    ${!SLURM_LOCATION_VAR}/sbin/slurmd -D -N ${hostname} > /var/log/slurmd-${hostname}.out.log 2> /var/log/slurmd-${hostname}.err.log &
+    nodename="$(basename ${hostname} '.example.org')"
+    echo -e "\nstarting compute node ${nodename}..."
+    ${!SLURM_LOCATION_VAR}/sbin/slurmd -D -N ${nodename} > /var/log/slurmd-${nodename}.out.log 2> /var/log/slurmd-${nodename}.err.log &
 
 fi
 
