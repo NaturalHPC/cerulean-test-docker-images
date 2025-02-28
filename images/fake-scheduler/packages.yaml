@@ -1,0 +1,74 @@
+# These are the default settings at the time of creation, except that we force the
+# architecture to x86-64-v3 so that we don't get mismatches if these images and any
+# derived images are built on different architectures.
+packages:
+  all:
+    compiler: [gcc, clang, oneapi, xl, nag, fj, aocc]
+    require:
+      - "target=x86_64_v3"
+    providers:
+      awk: [gawk]
+      armci: [armcimpi]
+      blas: [openblas, amdblis]
+      c: [gcc]
+      cxx: [gcc]
+      D: [ldc]
+      daal: [intel-oneapi-daal]
+      elf: [elfutils]
+      fftw-api: [fftw, amdfftw]
+      flame: [libflame, amdlibflame]
+      fortran: [gcc]
+      fortran-rt: [gcc-runtime, intel-oneapi-runtime]
+      fuse: [libfuse]
+      gl: [glx, osmesa]
+      glu: [mesa-glu, openglu]
+      golang: [go, gcc]
+      go-or-gccgo-bootstrap: [go-bootstrap, gcc]
+      iconv: [libiconv]
+      ipp: [intel-oneapi-ipp]
+      java: [openjdk, jdk, ibm-java]
+      jpeg: [libjpeg-turbo, libjpeg]
+      lapack: [openblas, amdlibflame]
+      libc: [glibc, musl]
+      libgfortran: [gcc-runtime]
+      libglx: [mesa+glx]
+      libifcore: [intel-oneapi-runtime]
+      libllvm: [llvm]
+      lua-lang: [lua, lua-luajit-openresty, lua-luajit]
+      luajit: [lua-luajit-openresty, lua-luajit]
+      mariadb-client: [mariadb-c-client, mariadb]
+      mkl: [intel-oneapi-mkl]
+      mpe: [mpe2]
+      mpi: [openmpi, mpich]
+      mysql-client: [mysql, mariadb-c-client]
+      opencl: [pocl]
+      onedal: [intel-oneapi-dal]
+      pbs: [openpbs, torque]
+      pil: [py-pillow]
+      pkgconfig: [pkgconf, pkg-config]
+      qmake: [qt-base, qt]
+      rpc: [libtirpc]
+      scalapack: [netlib-scalapack, amdscalapack]
+      sycl: [hipsycl]
+      szip: [libaec, libszip]
+      tbb: [intel-tbb]
+      unwind: [libunwind]
+      uuid: [util-linux-uuid, libuuid]
+      wasi-sdk: [wasi-sdk-prebuilt]
+      xxd: [xxd-standalone, vim]
+      yacc: [bison, byacc]
+      ziglang: [zig]
+      zlib-api: [zlib-ng+compat, zlib]
+    permissions:
+      read: world
+      write: user
+  cray-mpich:
+    buildable: false
+  cray-mvapich2:
+    buildable: false
+  fujitsu-mpi:
+    buildable: false
+  hpcx-mpi:
+    buildable: false
+  spectrum-mpi:
+    buildable: false

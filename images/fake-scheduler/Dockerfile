@@ -14,6 +14,8 @@ RUN apt-get update && \
 RUN cd /opt && \
     git clone --depth=100 --branch=releases/v0.23 https://github.com/spack/spack.git
 
+COPY packages.yaml /opt/spack/etc/spack/packages.yaml
+
 RUN . /opt/spack/share/spack/setup-env.sh && \
     spack config add "modules:default:enable:[tcl]" && \
     spack install lmod
